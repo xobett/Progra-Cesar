@@ -24,6 +24,8 @@ public class IAHealth : MonoBehaviour,IDamageable
 
     private void Death()
     {
+        AudioManager.instance.Play("EnemyDie");
+
         Debug.Log("Mataste a " + name);
         Destroy(gameObject);
     }

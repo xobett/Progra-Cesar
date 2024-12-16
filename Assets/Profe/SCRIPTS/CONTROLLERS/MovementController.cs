@@ -1,3 +1,4 @@
+using UnityEditor.Build;
 using UnityEngine;
 
 /// <summary>
@@ -21,6 +22,8 @@ namespace Profe
         [SerializeField] private float walkSpeed = 5;
         [SerializeField] private float runSpeed = 7;
 
+        [SerializeField] private float jumpForce;
+
         private Rigidbody rb;
 
         private Corrutinas corrutinas;
@@ -33,18 +36,31 @@ namespace Profe
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
+        }
+
+        private void Update()
+        {
+
         }
 
         private void FixedUpdate()
         {
+            Jump();
             Move();
         }
 
-        CharacterController cc;
+        private void Jump()
+        {
+            if (IsJumping())
+            {
+                rb.AddForce(Vector3.up * jumpForce);
+            }
+        }
 
         private void Move()
         {
-            rb.velocity = transform.rotation * new Vector3(HorizontalMove(), 0, VerticalMove()) * ActualSpeed();
+            rb.velocity = transform.rotation * new Vector3(HorizontalMove(), rb.velocity.y, VerticalMove());
         }
 
         private float ActualSpeed()
@@ -54,12 +70,12 @@ namespace Profe
 
         public float HorizontalMove()
         {
-            return Input.GetAxis("Horizontal");
+            return Input.GetAxis("Horizontal") * ActualSpeed();
         }
 
         public float VerticalMove()
         {
-            return Input.GetAxis("Vertical");
+            return Input.GetAxis("Vertical") * ActualSpeed();
         }
 
         public bool IsMoving()
@@ -84,6 +100,11 @@ namespace Profe
         private bool IsCrouching()
         {
             return Input.GetKey(KeyCode.LeftControl);
+        }
+
+        private bool IsJumping()
+        {
+            return Input.GetButtonDown("Jump");
         }
 
     }

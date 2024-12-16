@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -14,12 +15,32 @@ namespace Profe.Weapons
     {
         protected internal override void Shoot()
         {
-            base.Shoot();
+            if (actualAmmo > 0)
+            {
+                actualAmmo--;
+                base.Shoot();
+            }
         }
 
         protected internal override void Reload()
         {
-            Debug.Log("Recargo");
+            StartCoroutine(ReloadHandgun());
+        }
+
+        private IEnumerator ReloadHandgun()
+        {      
+            if (actualAmmo >= maxAmmo - magazineSize)
+            {
+                actualAmmo = maxAmmo;
+                yield return new WaitForSeconds(reloadTime);
+            }
+            else if (actualAmmo < maxAmmo)
+            {
+                actualAmmo += magazineSize;
+                yield return new WaitForSeconds(reloadTime);
+            }
+
+            yield return null;
         }
 
     }

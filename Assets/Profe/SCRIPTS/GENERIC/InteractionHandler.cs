@@ -15,7 +15,8 @@ public class InteractionHandler : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward * range, out target, range, detection))
         {
             if(Input.GetKeyDown(KeyCode.E)) 
-            { 
+            {
+                AudioManager.instance.Play("Interact");
                 target.collider.GetComponent<IInteractable>().Interact();
             }
         }

@@ -23,7 +23,9 @@ namespace Profe
         [SerializeField] private Page[] pages = new Page[3]; // 24 items
 
         public int actualPage = 0;
-        private int maxItemsPerPage = 8;
+        private int maxItemsPerPage = 2;
+
+        public int totalInventoryObjects = 0;
 
         private InventoryHandler inventoryRef;
 
@@ -46,12 +48,27 @@ namespace Profe
             if (Input.GetKeyDown(KeyCode.I)) // Abrir inventario
             {
                 OpenInventory();
+
+                CursorState();
+            }
+
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        private void CursorState()
+        {
+            if (inventoryOpened)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState= CursorLockMode.Locked;    
             }
         }
 
         private void OpenInventory()
         {
-
             inventoryOpened = !inventoryOpened;
             inventoryCanvas.SetActive(inventoryOpened);
 
@@ -63,7 +80,7 @@ namespace Profe
             else
             {
                 //   i = el item en el que voy en mi pagina actual
-                for(int i = pages[actualPage].itemsDeployed; i < inventoryRef.inventory.Count; i++) // Tenemos 1 item
+                for(int i = totalInventoryObjects; i < inventoryRef.inventory.Count; i++) // Tenemos 1 item
                 {               
                     GameObject item = Instantiate(uiItemPrefab); // Creo un item en el canvas
                     item.transform.SetParent(displayArea.transform); // Lo emparento al area del libro/display/area util
@@ -74,7 +91,9 @@ namespace Profe
                     // items[pages[actualPage].itemsDeployed] estoy accediendo al item que sigue, es decir, donde voy a guardar mi item
                     pages[actualPage].itemsDeployed++; // 8
 
-                    if (pages[actualPage].itemsDeployed >= maxItemsPerPage) // Si ya alcance mi capacidad maxima de items en mi pagina actual
+                    totalInventoryObjects++;
+
+                    if (pages[actualPage].itemsDeployed >= maxItemsPerPage && totalInventoryObjects != 6) // Si ya alcance mi capacidad maxima de items en mi pagina actual
                     {
                         actualPage++; // paso a la siguiente pagina
                     }
@@ -86,7 +105,34 @@ namespace Profe
             }
         }
 
+        public void ShowNextPageItems()
+        {
+            if (actualPage != 2)
+            {
+                HideItems();
+                ShowItems(actualPage + 1);
+                actualPage++;
+            }
+            else
+            {
+                return;
+            }
+        }
        
+        public void ShowLastPageItems()
+        {
+            if (actualPage != 0)
+            {
+                HideItems(actualPage);
+                ShowItems(actualPage - 1);
+                actualPage--;
+            }
+            else
+            {
+                return;
+            }
+        }
+
 
         [ContextMenu("Show Items in Page")]
         private void ShowItems()

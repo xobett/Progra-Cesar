@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/PROFE/SCENES/GAME.unity
+    path: Assets/Profe/SCENES/GAME.unity
     guid: d7c03489968bca9479fc59947e8e139f
+  - enabled: 1
+    path: Assets/Cesar/SCENES/Victory.unity
+    guid: 2161f1a60e6f7f74ab82571b8fa65d4b
   m_configObjects: {}

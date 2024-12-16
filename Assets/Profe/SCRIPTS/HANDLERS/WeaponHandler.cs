@@ -23,21 +23,21 @@ namespace Profe.Weapons
     public class WeaponHandlerVictor : MonoBehaviour
     {
 
-        [SerializeField] private Weapon[] weapons;
-        [SerializeField] private Weapon currentWeapon;
+        //[SerializeField] private Weapon[] weapons;
+        //[SerializeField] private Weapon currentWeapon;
 
-        private void Update()
-        {
-            Aim();
-        }
+        //private void Update()
+        //{
+        //    Aim();
+        //}
 
-        private void Aim()
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                currentWeapon.Shoot();
-            }
-        }
+        //private void Aim()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Mouse0))
+        //    {
+        //        currentWeapon.Shoot();
+        //    }
+        //}
 
     }
 

@@ -9,15 +9,8 @@ public class TakeObject : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (!hasParent)
-        {
-
-
-            transform.SetParent(parent, false);
-
-            transform.position = Vector3.zero;
-        }
-
+        Destroy(gameObject);
+        Debug.Log("Interaction works!");
     }
 
 }

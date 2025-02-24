@@ -17,7 +17,7 @@ namespace Profe
             inventory.Add(item);
             Debug.Log("Se ha añadido " + item.name + " a tu inventario");
             Debug.Log("Descripcion: " + item.description);
-            newItemImage.sprite = item.sprite;
+            //newItemImage.sprite = item.sprite;
         }
 
     }

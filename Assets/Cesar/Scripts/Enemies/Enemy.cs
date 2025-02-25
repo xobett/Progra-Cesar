@@ -9,5 +9,6 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         keySpawner.GetComponent<UnlockDoorKey>().SubstractEnemyCount();
+        Destroy(gameObject);
     }
 }

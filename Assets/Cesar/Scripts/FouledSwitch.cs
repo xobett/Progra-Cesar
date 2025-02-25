@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class FouledSwitch : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private GameObject fouledSwitchesGroup;
 
-    // Update is called once per frame
-    void Update()
+    public void FouledSwitchDeath()
     {
-        
+        fouledSwitchesGroup = transform.parent.gameObject;
+        fouledSwitchesGroup.GetComponent<UnlockDoorPostSwitches>().SubstractFouledSwitch();
+        Destroy(gameObject);
     }
 }

@@ -68,8 +68,7 @@ public class CIDoor : Editor
                 {
                     MakeSpace();
                     descripcion = "Esta puerta requiere que se cumpla un evento para poderse abrir";
-                    //_door.eventoActivado = EditorGUILayout.Toggle("Se puede abrir?", _door.eventoActivado);
-                    EditorGUILayout.PropertyField(key, new GUIContent("Key needed to unlock door"));
+                    _door.eventoActivado = EditorGUILayout.Toggle("Se puede abrir?", _door.eventoActivado);
                     break;
                 }
 
@@ -98,7 +97,6 @@ public class CIDoor : Editor
                 }
 
         }
-
 
         serializedObject.ApplyModifiedProperties();
     }

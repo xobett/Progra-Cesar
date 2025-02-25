@@ -30,12 +30,17 @@ public class Door : MonoBehaviour, IInteractable
     public Vector3 slideDownPos;
     public Vector3 slideUpPos;
 
+    private bool doorOpened;
     public InventoryHandler inventoryHandler;
+    public UnlockFinalDoor finalDoorActuator; 
 
     private void Awake()
     {
         //Busca el inventario del jugador
         inventoryHandler = FindObjectOfType<InventoryHandler>();
+
+        //Busca el actuador de la puerta final
+        finalDoorActuator = FindObjectOfType<UnlockFinalDoor>();
     }
 
     public void Interact()
@@ -83,12 +88,16 @@ public class Door : MonoBehaviour, IInteractable
 
         //Activa el modo automatico de la puerta.
         isAutomatic = true;
+
+        if (!doorOpened) SubstractOpenedDoor();
+        doorOpened = true;
     }
 
     private void Normal()
     {
-        //Destruye la puerta.
+        SubstractOpenedDoor();
         Destroy(this.gameObject);
+
     }
 
     private void Evento()
@@ -96,6 +105,7 @@ public class Door : MonoBehaviour, IInteractable
         //Comprueba si se ha completado el evento.
         if (eventoActivado)
         {
+            SubstractOpenedDoor();
             Destroy(gameObject);
         }
         else
@@ -109,6 +119,7 @@ public class Door : MonoBehaviour, IInteractable
         //Comprueba que en el inventario se encuentren las llaves requeridas.
         if (VerifyNeededKey(keys[0]) && VerifyNeededKey(keys[1]))
         {
+            SubstractOpenedDoor();
             Destroy(gameObject);
         }
         else
@@ -122,6 +133,7 @@ public class Door : MonoBehaviour, IInteractable
         //Comprueba que en el inventario se encuentre la llave requerida.
         if (VerifyNeededKey(key))
         {
+            SubstractOpenedDoor();
             Destroy(gameObject);
         }
         else
@@ -183,6 +195,12 @@ public class Door : MonoBehaviour, IInteractable
         //Invierte el valor del booleano que indica si la puerta ha sido movida o no.
         doorIsUp = !doorIsUp;
         StopAllCoroutines();
+    }
+
+    private void SubstractOpenedDoor()
+    {
+        //Resta la puerta activa de las puertas contadas en el script de la puerta final.
+        finalDoorActuator.DoorOpened();
     }
 
 }

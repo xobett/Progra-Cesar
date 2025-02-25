@@ -9,8 +9,11 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<Enemy>().Death();
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
         }
+        else if (collision.gameObject.CompareTag("Fouled Switch"))
+        {
+            collision.gameObject.GetComponent<FouledSwitch>().FouledSwitchDeath();
+        }
+        Destroy(gameObject, 3);
     }
 }

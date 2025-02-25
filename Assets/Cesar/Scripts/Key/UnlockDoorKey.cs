@@ -31,6 +31,9 @@ public class UnlockDoorKey : MonoBehaviour
 
     private void SpawnKey()
     {
-        Instantiate(keyPrefab, spawnKeyPos.position, Quaternion.identity);
-    }
+        if (keyPrefab != null)
+        {
+            Instantiate(keyPrefab, spawnKeyPos.position, Quaternion.identity);
+
+        }    }
 }

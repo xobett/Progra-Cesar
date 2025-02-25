@@ -3,21 +3,25 @@ using System.Collections;
 using UnityEngine;
 
 // Tipos de puerta: Automatica, Normal, DeLlave, Evento, MultiplesLlaves
+public enum TipoDePuerta
+{
+    Automatica, Normal, DeLlave, Evento, MultiplesLlaves
+}
 public class Door : MonoBehaviour, IInteractable
 {
-    [Header("TIPO DE PUERTA")]
+    //Enum sobre el tipo de puerta a elegir.
     [SerializeField] public TipoDePuerta tipoDePuerta;
 
-    [Header("TIPO EVENTO SETTINGS")]
+    //Bool que detecta si un evento se ha completado.
     [SerializeField] public bool eventoActivado;
 
-    [Header("TIPO LLAVE SETTINGS")]
+    //SOITEM de llave necesaria para abrir una puerta.
     [SerializeField] public SOItem key;
 
-    [Header("TIPO MULTIPLES LLAVES SETTINGS")]
-    [SerializeField] public SOItem[] keys = new SOItem[3];
+    //SOITEMs de llaves necesarias para abrir una puerta.
+    [SerializeField] public SOItem[] keys = new SOItem[2];
 
-    [Header("TIPO AUTOMATICA SETTINGS")]
+    //Float que controla la velocidad con la que se abre la puerta automatica.
     [SerializeField, Range(0, 5)] public float slideDoorSpeed;
 
     public bool isAutomatic;
@@ -68,7 +72,6 @@ public class Door : MonoBehaviour, IInteractable
                     break;
                 }
         }
-
     }
 
     private void Automatica()
@@ -104,7 +107,7 @@ public class Door : MonoBehaviour, IInteractable
     private void MultiplesLlaves()
     {
         //Comprueba que en el inventario se encuentren las llaves requeridas.
-        if (VerifyNeededKey(keys[0]) && VerifyNeededKey(keys[1]) && VerifyNeededKey(keys[2]))
+        if (VerifyNeededKey(keys[0]) && VerifyNeededKey(keys[1]))
         {
             Destroy(gameObject);
         }
@@ -132,9 +135,12 @@ public class Door : MonoBehaviour, IInteractable
     {
         //Al entrar a la zona de trigger, verifica primero si es automatica y la puerta no ha subido.
         //Tras ello, manda a llamar el metodo que mueve la puerta, mandando como parametro la posicion a donde la movera.
-        if (isAutomatic && !doorIsUp)
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(SlideDoor(slideUpPos));
+            if (isAutomatic && !doorIsUp)
+            {
+                StartCoroutine(SlideDoor(slideUpPos));
+            } 
         }
     }
 
@@ -142,9 +148,12 @@ public class Door : MonoBehaviour, IInteractable
     {
         //Al salir de la zona de trigger, verifica primero si es automatica y si la puerta ya ha subido.
         //Tras ello, manda a llamar el metodo que mueve la puerta, para bajar la puerta de nuevo a la posicion inicial.
-        if (isAutomatic && doorIsUp)
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(SlideDoor(slideDownPos));
+            if (isAutomatic && doorIsUp)
+            {
+                StartCoroutine(SlideDoor(slideDownPos));
+            } 
         }
     }
 
@@ -178,7 +187,3 @@ public class Door : MonoBehaviour, IInteractable
 
 }
 
-public enum TipoDePuerta
-{
-    Automatica, Normal, DeLlave, Evento, MultiplesLlaves
-}

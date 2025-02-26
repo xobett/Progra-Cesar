@@ -55,6 +55,12 @@ public class WeatherAPI : MonoBehaviour
         }
     }
 
+
+    private void ChangeEnvironment()
+    {
+
+    }
+
     private void DecodeJson()
     {
         var weatherJson = JSON.Parse(json);
@@ -70,5 +76,7 @@ public class WeatherAPI : MonoBehaviour
     {
         int randomCountryNumber = Random.Range(0, countries.Length);
         return randomCountryNumber;
-    }  
+    }
+    
+
 }

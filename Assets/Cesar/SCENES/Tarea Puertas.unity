@@ -7492,6 +7492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1723916098}
   - component: {fileID: 1723916097}
+  - component: {fileID: 1723916099}
   m_Layer: 0
   m_Name: Weather API
   m_TagString: Untagged
@@ -7512,7 +7513,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    timeZone: 
+    country: 
+    name: 
     description: 
     actualTemp: 0
     windSpeed: 0
@@ -7562,6 +7564,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1723916099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723916096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ef3b55b30678f648be128d89ab8568e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeProfile: {fileID: 11400000, guid: e0a5bc56f15f6ba41b0072447bbebae0, type: 2}
+  colorTransitionSpeed: 0.1
 --- !u!1 &1760572818
 GameObject:
   m_ObjectHideFlags: 0
@@ -40451,8 +40467,8 @@ SceneRoots:
   - {fileID: 834323954}
   - {fileID: 1784416032}
   - {fileID: 347872137}
-  - {fileID: 128462658}
-  - {fileID: 789733143}
-  - {fileID: 1461462840}
   - {fileID: 1916586735}
   - {fileID: 1723916098}
+  - {fileID: 1461462840}
+  - {fileID: 128462658}
+  - {fileID: 789733143}

@@ -8,30 +8,35 @@ using UnityEngine;
 
 public class WeatherAPI : MonoBehaviour
 {
+    //Struct para organizar los datos del clima.
     [SerializeField] WeatherData data;
-    [SerializeField] private float latitud = 37.566f;
-    [SerializeField] private float longitud = 126.9784f;
-    private static readonly string apiKey = "7fe45acb4f5a69f83c45312aad97613a";
+    //Arreglo de structs que organizan la informacion de un pais.
+    [SerializeField] private WeatherCountry[] countries = new WeatherCountry[10];
+    //String no modificable que contiene la llave API.
+    private static readonly string apiKey = "dd355587e331db0873d6e0b86b684739";
 
-    private string url;
-
+    //String donde se convierte la informacion Json.
     private string json;
-    void Start()
+
+    private void Start()
     {
-        url = $"https://api.openweathermap.org/data/3.0/onecall?lat={latitud}&lon={longitud}&appid={apiKey}&lang=sp&units=metric";
+        StartCoroutine(RetrieveWeatherData());
     }
 
-    // Update is called once per frame
-    void Update()
+    private string UpdatedURL()
     {
-        
+        WeatherCountry chosenCountry = countries[GetRandomCountry()];
+
+        string url = $"https://api.openweathermap.org/data/2.5/weather?lat={chosenCountry.countryLatitude}&lon={chosenCountry.countryLongitude}&appid={apiKey}&units=metric";
+
+        return url;
     }
 
     IEnumerator RetrieveWeatherData()
     {
-        yield return new WaitForSecondsRealtime(60);
+        yield return new WaitForSecondsRealtime(5);
 
-        UnityWebRequest request = new UnityWebRequest(url);
+        UnityWebRequest request = new UnityWebRequest(UpdatedURL());
         request.downloadHandler = new DownloadHandlerBuffer();
 
         yield return request.SendWebRequest();
@@ -45,6 +50,8 @@ public class WeatherAPI : MonoBehaviour
             Debug.Log(request.downloadHandler.text);
 
             json = request.downloadHandler.text;
+
+            DecodeJson();
         }
     }
 
@@ -52,9 +59,16 @@ public class WeatherAPI : MonoBehaviour
     {
         var weatherJson = JSON.Parse(json);
 
-        data.timeZone = weatherJson["timeZone"].Value;
-        data.actualTemp = float.Parse(weatherJson["current"]["temp"].Value);
-        data.description = weatherJson["current"]["weather"][0]["description"].Value;
-        data.windSpeed = float.Parse(weatherJson["current"]["wind_speed"].Value);
+        data.country = weatherJson["sys"]["country"].Value;
+        data.name = weatherJson["name"].Value;
+        data.actualTemp = float.Parse(weatherJson["main"]["temp"].Value);
+        data.description = weatherJson["weather"][0]["description"].Value;
+        data.windSpeed = float.Parse(weatherJson["wind"]["speed"].Value);
     }
+
+    private int GetRandomCountry()
+    {
+        int randomCountryNumber = Random.Range(0, countries.Length);
+        return randomCountryNumber;
+    }  
 }

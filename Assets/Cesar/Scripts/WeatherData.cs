@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public struct WeatherData
 {
-    public string timeZone;
-    public string description;
+    [SerializeField] public string country;
+    [SerializeField] public string name;
+    [SerializeField] public string description;
 
-    public float actualTemp;
-    public float windSpeed;
+    [SerializeField] public float actualTemp;
+    [SerializeField] public float windSpeed;
 }

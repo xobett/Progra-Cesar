@@ -7482,6 +7482,86 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2.1160362, z: 9.4}
   m_Center: {x: -2.7977617e-15, y: -0.55801654, z: 1.25}
+--- !u!1 &1723916096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1723916098}
+  - component: {fileID: 1723916097}
+  m_Layer: 0
+  m_Name: Weather API
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1723916097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723916096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c0ab2c158661f48a7a9f25a7fae269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    timeZone: 
+    description: 
+    actualTemp: 0
+    windSpeed: 0
+  countries:
+  - city: Mexico City
+    countryLatitude: 19.432608
+    countryLongitude: -99.13321
+  - city: Tokyo
+    countryLatitude: 35.689487
+    countryLongitude: 139.69171
+  - city: San Francisco
+    countryLatitude: 37.77493
+    countryLongitude: -122.41942
+  - city: Seoul
+    countryLatitude: 37.566536
+    countryLongitude: 126.97797
+  - city: Berlin
+    countryLatitude: 52.520008
+    countryLongitude: 13.404954
+  - city: London
+    countryLatitude: 51.50735
+    countryLongitude: -0.127758
+  - city: Madrid
+    countryLatitude: 40.4165
+    countryLongitude: -3.70256
+  - city: Singapore
+    countryLatitude: 1.352083
+    countryLongitude: 103.81984
+  - city: Dubai
+    countryLatitude: 25.07725
+    countryLongitude: 55.30927
+  - city: Moscu
+    countryLatitude: 55.75222
+    countryLongitude: 37.61556
+--- !u!4 &1723916098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723916096}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1760572818
 GameObject:
   m_ObjectHideFlags: 0
@@ -40375,3 +40455,4 @@ SceneRoots:
   - {fileID: 789733143}
   - {fileID: 1461462840}
   - {fileID: 1916586735}
+  - {fileID: 1723916098}

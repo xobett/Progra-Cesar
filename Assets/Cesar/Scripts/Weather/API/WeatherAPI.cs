@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine;
+using TMPro;
 
 public class WeatherAPI : MonoBehaviour
 {
@@ -14,18 +15,23 @@ public class WeatherAPI : MonoBehaviour
     //String no modificable que contiene la llave API.
     private static readonly string apiKey = "dd355587e331db0873d6e0b86b684739";
 
+    //Clase que realiza el cambio de clima.
     [SerializeField] private WeatherChangeEnvironment weatherChange;
 
-    private bool weatherObtained;
-
+    //Int que se usa para guardar los datos de un pais del arreglo de paises.
     private int currentRandomIndex;
 
     //String donde se convierte la informacion Json.
     private string json;
 
+    private TextMeshProUGUI countryDisplayText;
+
     private void Start()
     {
+        countryDisplayText = GameObject.FindGameObjectWithTag("Weather Text").GetComponent<TextMeshProUGUI>();
+
         weatherChange = gameObject.GetComponent<WeatherChangeEnvironment>();
+        
         StartCoroutine(RetrieveWeatherData());
     }
 
@@ -40,7 +46,7 @@ public class WeatherAPI : MonoBehaviour
 
     IEnumerator RetrieveWeatherData()
     {
-        yield return new WaitForSecondsRealtime(15);
+        yield return new WaitForSecondsRealtime(90);
 
         ClearCountriesData();
 
@@ -62,6 +68,7 @@ public class WeatherAPI : MonoBehaviour
             DecodeJson();
 
             weatherChange.SetEnvironmentValues(countries[currentRandomIndex].weatherData.actualTemp);
+            UpdateScreenDisplay(countries[currentRandomIndex].country);
         }
 
         StartCoroutine(RetrieveWeatherData());
@@ -94,5 +101,10 @@ public class WeatherAPI : MonoBehaviour
     {
         int randomCountryNumber = Random.Range(0, countries.Length);
         return randomCountryNumber;
+    }
+
+    private void UpdateScreenDisplay(string country)
+    {
+        countryDisplayText.text = $"Escenario de {country} iniciado.";
     }
 }

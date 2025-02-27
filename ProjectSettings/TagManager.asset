@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Fouled Switch
   - Locked Door
+  - Weather Text
   layers:
   - Default
   - TransparentFX

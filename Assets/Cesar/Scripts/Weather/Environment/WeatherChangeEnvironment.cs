@@ -9,13 +9,17 @@ public class WeatherChangeEnvironment : MonoBehaviour
 {
     [SerializeField] private VolumeProfile volumeProfile;
 
+    [Header("LIGHT SETTINGS")]
+    [SerializeField] private Light worldLight;
+    private float lightIntensity;
+
     [Header("BLOOM SETTINGS")]
     private Bloom profileBloom;
     private Color bloomTintColor;
 
     [Header("VIGNETTE SETTINGS")]
     private Vignette profileVignette;
-    [SerializeField] private Color vignetteTintColor;
+    private Color vignetteTintColor;
 
     private float vignetteIntensity;
     private float vignetteSmoothness;
@@ -26,7 +30,6 @@ public class WeatherChangeEnvironment : MonoBehaviour
     {
         SetEnvironmenEffectsDefault();
     }
-
 
     public void SetEnvironmentValues(float actualTemp)
     {
@@ -42,6 +45,8 @@ public class WeatherChangeEnvironment : MonoBehaviour
                     vignetteIntensity = 0.4f;
                     vignetteSmoothness = 0.3f;
 
+                    lightIntensity = 1000f;
+
                     break;
                 }
 
@@ -52,6 +57,9 @@ public class WeatherChangeEnvironment : MonoBehaviour
                     vignetteTintColor = new Color(12, 124, 238);
                     vignetteIntensity = 0.3f;
                     vignetteSmoothness = 0.2f;
+
+                    lightIntensity = 2000f;
+
                     break;
                 }
 
@@ -62,6 +70,9 @@ public class WeatherChangeEnvironment : MonoBehaviour
                     vignetteTintColor = new Color(3, 130, 0);
                     vignetteIntensity = 0.35f;
                     vignetteSmoothness = 0.15f;
+
+                    lightIntensity = 3000f;
+
                     break;
                 }
 
@@ -72,6 +83,9 @@ public class WeatherChangeEnvironment : MonoBehaviour
                     vignetteTintColor = new Color(147, 11, 0);
                     vignetteIntensity = 0.35f;
                     vignetteSmoothness = 0.5f;
+
+                    lightIntensity = 4000f;
+
                     break;
                 }
         }
@@ -93,6 +107,9 @@ public class WeatherChangeEnvironment : MonoBehaviour
             profileVignette.intensity.value = Mathf.Lerp(profileVignette.intensity.value, vignetteIntensity, time);
             profileVignette.smoothness.value = Mathf.Lerp(profileVignette.smoothness.value, vignetteSmoothness, time);
 
+            //Cambia el valor de la intensidad de la luz
+            worldLight.intensity = Mathf.Lerp(worldLight.intensity, lightIntensity, time);
+
             time += Time.deltaTime * transitionSpeed;
             yield return null;
         }
@@ -101,6 +118,8 @@ public class WeatherChangeEnvironment : MonoBehaviour
         profileVignette.color.value = vignetteTintColor;
         profileVignette.intensity.value = vignetteIntensity;
         profileVignette.smoothness.value = vignetteSmoothness;
+
+        worldLight.intensity = lightIntensity;
 
         Debug.Log("Environment Changed");
 
@@ -117,5 +136,7 @@ public class WeatherChangeEnvironment : MonoBehaviour
         profileVignette.color.value = Color.white;
         profileVignette.smoothness.value = 0f;
         profileVignette.intensity.value = 0f;
+
+        worldLight.intensity = 0f;
     }
 }

@@ -6,7 +6,10 @@ using UnityEngine;
 [System.Serializable]
 public struct WeatherCountry
 {
-    [SerializeField] public string city;
+    [SerializeField] public string country;
     [SerializeField] public float countryLatitude;
     [SerializeField] public float countryLongitude;
-}
+
+    [SerializeField] public WeatherData weatherData;
+    [SerializeField] public bool weatherIsDisplayed;
+ }

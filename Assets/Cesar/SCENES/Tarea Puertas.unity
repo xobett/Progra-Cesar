@@ -1140,6 +1140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleID: 98349
   secretKey: O5R9WIRW6HTCKR3KH8Q8FW7G85SSRQJORCKCM5ADA9FUSB9KN7
+  userNameInput: {fileID: 1898148200}
+  passwordInput: {fileID: 1182742005}
 --- !u!4 &347872137
 Transform:
   m_ObjectHideFlags: 0
@@ -7549,6 +7551,7 @@ MonoBehaviour:
   - city: Moscu
     countryLatitude: 55.75222
     countryLongitude: 37.61556
+  weatherChange: {fileID: 0}
 --- !u!4 &1723916098
 Transform:
   m_ObjectHideFlags: 0
@@ -7577,7 +7580,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeProfile: {fileID: 11400000, guid: e0a5bc56f15f6ba41b0072447bbebae0, type: 2}
-  colorTransitionSpeed: 0.1
+  vignetteTintColor: {r: 1, g: 1, b: 1, a: 0}
+  transitionSpeed: 0.1
 --- !u!1 &1760572818
 GameObject:
   m_ObjectHideFlags: 0
@@ -40466,9 +40470,9 @@ SceneRoots:
   - {fileID: 300563332}
   - {fileID: 834323954}
   - {fileID: 1784416032}
-  - {fileID: 347872137}
   - {fileID: 1916586735}
   - {fileID: 1723916098}
+  - {fileID: 347872137}
   - {fileID: 1461462840}
   - {fileID: 128462658}
   - {fileID: 789733143}

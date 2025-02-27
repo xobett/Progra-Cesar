@@ -5,9 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public struct WeatherData
 {
-    [SerializeField] public string country;
-    [SerializeField] public string name;
-    [SerializeField] public string description;
+    [SerializeField] public string city;
+    [SerializeField] public string weatherDescription;
 
     [SerializeField] public float actualTemp;
     [SerializeField] public float windSpeed;

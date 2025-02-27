@@ -42,7 +42,7 @@ MonoBehaviour:
     m_Value: 0.544
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.63872534, b: 0, a: 1}
+    m_Value: {r: 7.949505e-31, g: 1.0000001, b: 0.99999994, a: 1}
   dirtTexture:
     m_OverrideState: 1
     m_Value: {fileID: 0}
@@ -73,25 +73,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1be1b6c95cd2e41b27903b9270817f, type: 3}
   m_Name: Vignette
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
     m_Value: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0.70351434, b: 1, a: 1}
+    m_Value: {r: 12.000001, g: 123.99999, b: 237.99998, a: 1}
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.30000004
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.15
+    m_Value: 0.20000002
   roundness:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.75
   rounded:
     m_OverrideState: 1
     m_Value: 0

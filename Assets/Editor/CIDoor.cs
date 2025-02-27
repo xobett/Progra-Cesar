@@ -9,6 +9,7 @@ using UnityEngine; // Contiene todo lo que necesitamos para modificar el editor 
 public class CIDoor : Editor
 {
     private Door _door; // Esta referencia la vamos a usar para nosotros poder escribir las variables que existen en el script de puerta
+
     private string descripcion;
 
     private SerializedProperty tipoDePuerta;
@@ -105,7 +106,6 @@ public class CIDoor : Editor
     {
         EditorGUILayout.Space(5);
     }
-
 }
 
 #endif

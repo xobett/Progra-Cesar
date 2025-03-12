@@ -29,7 +29,7 @@ public class PlayfabManager : MonoBehaviour
     [SerializeField] private TMP_InputField logInPasswordInput;
 
     [Header("PANEL SETTINGS")]
-    [SerializeField] private GameObject logInPanel;
+    [SerializeField] private GameObject userPanels;
 
     [Header("HUD DISPLAY SETTINGS")]
     [SerializeField] private TextMeshProUGUI usernameDisplay;
@@ -87,31 +87,6 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.LoginWithPlayFab(logInRequest, OnLogInResult, PlayFabErrorMessage);
     }
 
-    public void GetPlayerProfile()
-    {
-        var request = new GetPlayerProfileRequest()
-        {
-            ProfileConstraints = new PlayerProfileViewConstraints()
-            {
-                ShowDisplayName = true,
-                ShowAvatarUrl = true
-            }
-        };
-
-        PlayFabClientAPI.GetPlayerProfile(request, OnGetPlayerProfile, PlayFabErrorMessage);
-    } 
-
-    private void OnGetPlayerProfile(GetPlayerProfileResult result)
-    {
-        Debug.Log("Se consiguio la info del player");
-
-        usernameDisplay.text = $"Username : {result.PlayerProfile.DisplayName}";
-
-        string avatarUrl = result.PlayerProfile.AvatarUrl;
-        Debug.Log(result.PlayerProfile.AvatarUrl);
-        StartCoroutine(ShowAvatar(avatarUrl));
-    }
-
     //Metodo a donde se regresa el resultado del ingreso del jugador a PlayFab. 
     private void OnLogInResult(LoginResult logInResult)
     {
@@ -119,6 +94,37 @@ public class PlayfabManager : MonoBehaviour
 
         GetPlayerProfile();
     }
+
+    public void GetPlayerProfile()
+    {
+        //Crea una variable donde se almacena una solicitud para obtener los datos del jugador.
+        var request = new GetPlayerProfileRequest()
+        {
+            //Permite al jugador obtener el nombre de usuario y URL del avatar del usuario.
+            ProfileConstraints = new PlayerProfileViewConstraints()
+            {
+                ShowDisplayName = true,
+                ShowAvatarUrl = true
+            }
+        };
+
+        //Se comunica con PlayFab y manda la solicitud para obtener los datos del jugador que inicio sesion.
+        PlayFabClientAPI.GetPlayerProfile(request, OnGetPlayerProfile, PlayFabErrorMessage);
+    } 
+
+    private void OnGetPlayerProfile(GetPlayerProfileResult result)
+    {
+        //Desactiva los paneles de ingreso y creacion de cuenta.
+        userPanels.SetActive(false);
+
+        //Actualiza el texto del HUD con el nombre del usuario.
+        usernameDisplay.text = $"Username : {result.PlayerProfile.DisplayName}";
+
+        //Obtiene el URL de la imagen del avatar del jugador.
+        string avatarUrl = result.PlayerProfile.AvatarUrl;
+        StartCoroutine(ShowAvatar(avatarUrl));
+    }
+
 
     //Metodo a donde se regresa el resultado del registro del jugador a PlayFab.
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
@@ -134,19 +140,28 @@ public class PlayfabManager : MonoBehaviour
 
     private IEnumerator ShowAvatar(string avatarUrl)
     {
+        //Se crea una solicitud a la web donde se consigue una textura.
         UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(avatarUrl);
 
+        //Se espera hasta que se obtenga la respuesta de la solicitud.
         yield return webRequest.SendWebRequest();
 
+        //Si la solicitud fue un exito
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
-
+            //La informacion descargada de la web manejada por el download handler, se convierte a un handler que descarga la informacion a forma de textura.
+            //Posteriormente, la textura descargada se almacena en una Textura 2D.
             Texture2D avatarTexture = ((DownloadHandlerTexture)webRequest.downloadHandler).texture;
+            //A causa de que una Textura2D no se puede convertir a una Sprite, se crea una Sprite a base de la Textura.
             Sprite avatarImage = Sprite.Create(avatarTexture, new Rect(0, 0, avatarTexture.width, avatarTexture.height), new Vector2());
+            //Se asigna a la imagen del UI la sprite creada.
             uiImage.sprite = avatarImage;
+            //Para evitar alargamiento de la imagen, se activa una propiedad que trata de preservar el aspecto original.
+            uiImage.preserveAspect = true;
         }
         else
         {
+            //Si la solicitud fue un error, muestra la informacion del error.
             Debug.Log(webRequest.error);
         }
     }
